@@ -9,7 +9,7 @@ export default function Home({ pokemon }: { pokemon: SmallPokemon[] }) {
   //console.log(pokemon)
 
   return (
-    <Layout>
+    <Layout title='Pokémons'>
       <Grid.Container gap={2} justify='flex-start'>
         {pokemon.map((pokemon) => (
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
