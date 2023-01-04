@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Layout } from '../../components/layouts'
-import { NoFavorites } from '../../components/ui/noFavorites'
+import { NoFavorites } from '../../components/ui/NoFavorites'
 import { localFavorites } from '../../utils'
 import { Card, Grid } from '@nextui-org/react'
 import { FavoritesPokemons } from '../../components/pokemon'
