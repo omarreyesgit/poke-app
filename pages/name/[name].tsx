@@ -117,17 +117,33 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
         name,
       },
     })),
-    fallback: false,
+    //? fallback: false means that "not found" pages will be resolved at 404 page.
+    //fallback: false,
+    //? fallback: blocking means that the page will be server-side rendered on the first request to the route.
+    //? In the background, Next.js will statically generate the path HTML and JSON files.
+    //? On subsequent requests to the same route, the generated HTML and JSON files will be used.
+    // en blocking va a entrar en ese id en la url y lo pasará a getStaticProps el cual va a hacer la petición a la api, teniendo luego que validar si existe o no el pokemon
+    fallback: 'blocking',
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params as { name: string }
-
+  const lowerCaseName = name.toLowerCase()
+  const pokemon = await getPopkemonInfo(lowerCaseName)
+  if (!pokemon) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   return {
     props: {
-      pokemon: await getPopkemonInfo(name),
+      pokemon,
     },
+    revalidate: 86400,
   }
 }
 
